@@ -169,9 +169,9 @@ object opt {
 
     def printIfAny(): Unit = if (!this.isEmpty) print(this.get)
 
-    def orElse[B >: A](b: B): Option[A] = this match {
-      case Option.Some(v) => Option(v)
-      case Option.None    => Option(b)
+    def orElse[B >: A](b: B): Option[B] = this match {
+      case Option.Some(_) => this
+      case Option.None    => Option.None
     }
 
     def filter(predicate: A => Boolean): Option[A] = this match {
@@ -181,43 +181,48 @@ object opt {
 
     def zip[B](b: Option[B]): Option[(A, B)] = {
 
-     if (b.isEmpty) Option.None
-     else
-      this match {
-      case Option.Some(v)  => Option.Some((v, b.get))
-      case Option.None     => Option.None
+      if (b.isEmpty) Option.None
+      else
+        this match {
+          case Option.Some(v) => Option.Some((v, b.get))
+          case Option.None    => Option.None
+        }
     }
-  }
 
-  object Option {
-    case class Some[A](v: A) extends Option[A]
-    case object None extends Option[Nothing]
-  }
+    object Option {
 
-  /**
+      case class Some[A](v: A) extends Option[A]
+
+      case object None extends Option[Nothing]
+
+    }
+
+    /**
+      *
+      * Реализовать метод printIfAny, который будет печатать значение, если оно есть
+      */
+    /**
+      *
+      * реализовать метод orElse который будет возвращать другой Option, если данный пустой
+      */
+    /**
+      *
+      * Реализовать метод isEmpty, который будет возвращать true если Option не пуст и false в противном случае
+      */
+    /**
+      *
+      * Реализовать метод get, который будет возвращать значение
+      */
+    /**
+      *
+      * Реализовать метод zip, который будет создавать Option от пары значений из 2-х Option
+      */
+    /**
     *
-    * Реализовать метод printIfAny, который будет печатать значение, если оно есть
+    * Реализовать метод filter, который будет возвращать не пустой Option
+    * в случае если исходный не пуст и предикат от значения = true
     */
-  /**
-    *
-    * реализовать метод orElse который будет возвращать другой Option, если данный пустой
-    */
-  /**
-    *
-    * Реализовать метод isEmpty, который будет возвращать true если Option не пуст и false в противном случае
-    */
-  /**
-    *
-    * Реализовать метод get, который будет возвращать значение
-    */
-  /**
-    *
-    * Реализовать метод zip, который будет создавать Option от пары значений из 2-х Option
-    */
-  /**
-  *
-  * Реализовать метод filter, который будет возвращать не пустой Option
-  * в случае если исходный не пуст и предикат от значения = true
-  */
+
+  }
 
 }
