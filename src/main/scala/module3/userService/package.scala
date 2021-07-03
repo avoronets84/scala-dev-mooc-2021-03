@@ -14,6 +14,8 @@ package object userService{
 
   type UserService = Has[UserService.Service]
 
+  // декоратор автоматически генерирует методы ацессоры для объекта из трейта Service, имя Service должно быть обязательно + сам объект должен быть
+  // SomethingService
   @accessible
   object UserService{
 
