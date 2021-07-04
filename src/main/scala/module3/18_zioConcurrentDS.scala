@@ -105,6 +105,7 @@ object zioDS {
   object promises {
     val randomInt = nextInt.provideLayer(Random.live)
 
+    // вызывает 1 раз
     val complete: UIO[(Int, Int)] = for{
       p <- Promise.make[Nothing, Int]
       _ <- p.complete(randomInt)
@@ -113,14 +114,13 @@ object zioDS {
     } yield (l , r)
 
 
-
+    // вызывает 2 раза
     lazy val completeWith: UIO[(Int, Int)] = for{
       p <- Promise.make[Nothing, Int]
       _ <- p.completeWith(randomInt)
       l <- p.await
       r <- p.await
     } yield (l , r)
-
   }
 
 }
