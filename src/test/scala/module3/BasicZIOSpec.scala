@@ -53,7 +53,7 @@ object BasicZIOSpec extends DefaultRunnableSpec{
           _ <- greeter
           value <- TestConsole.output
         } yield assert(value)(hasSize(equalTo(2))) && assert(value(1))(equalTo("Привет, Alex\n"))
-      ) @@nonFlaky @@timeout(3 seconds) ,
+      ) @@nonFlaky @@timeout(3 seconds) , // аспект nonFlaky, тест будет запущен несколько раз
       testM("Effect clock")(
         for{
           fiber <- (ZIO.sleep(3 seconds) *> putStrLn(s"Hello, world!")).fork

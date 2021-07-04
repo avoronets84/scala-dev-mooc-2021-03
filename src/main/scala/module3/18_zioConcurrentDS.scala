@@ -71,6 +71,7 @@ object zioDS {
               val current = atomic.get
               val tuple = f(current)
               b = tuple._1
+              // atomic изменит состояние только тогда, когда никакой другой файбер не будет менять состояние переменной
               l = !atomic.compareAndSet(current, tuple._2)
             }
             b
@@ -82,7 +83,7 @@ object zioDS {
 
     /** Написать эффект, который будет конкурентно обновлять счетчик
       */
-
+    // 100 файберов проинкрементировали счетчик на 100, каждый файбер на +1, это атомарный способ
     val atomicUpdate = for{
       ref <- Ref.make(0)
       _ <- UIO.foreachPar_((1 to 100))(_ => ref.update(_ + 1))
@@ -91,6 +92,7 @@ object zioDS {
 
     val print = atomicUpdate.flatMap(r => putStrLn(r.toString()))
 
+    // так делать НЕ НАДО!!!!! Это НЕ атомарный способ
     lazy val atomicUpdate2 = for{
       ref <- Ref.make(0)
       _ <- UIO.foreachPar_((1 to 100))(_ => ref.get.flatMap(c => ref.set(c + 1)))
