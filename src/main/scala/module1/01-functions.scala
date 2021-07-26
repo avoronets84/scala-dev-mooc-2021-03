@@ -12,7 +12,7 @@ object functions {
   // SAM Single Abstract Method
 
 
-  // trait Function1[Int, Int]{ def apply(x: Int): Int}
+  trait Function1[Int, Int]{ def apply(x: Int): Int}
 
 
 
