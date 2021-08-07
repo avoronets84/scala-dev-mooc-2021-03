@@ -1,6 +1,5 @@
 package module1
 
-
 import java.io.Closeable
 
 object type_system {
@@ -10,26 +9,24 @@ object type_system {
    *
    */
 
-   // AnyVal
+  // AnyVal
 
-   //
+  //
 
-   // Unit
-
-
-
-   // Null
+  // Unit
 
 
-   // Nothing
+  // Null
+
+
+  // Nothing
 
   def absurd(v: Nothing) = ???
 
 
   // Generics
 
-    def ensureClose[T <: Closeable](o: T)(action: T => Unit): Unit = ???
-
+  def ensureClose[T <: Closeable](o: T)(action: T => Unit): Unit = ???
 
 
   /**
@@ -40,13 +37,10 @@ object type_system {
    */
 
 
-
-
   /**
    * Задание 1: Создать класс "Прямоугольник"(Rectangle), мы должны иметь возможность создавать прямоугольник с заданной
    * длиной(length) и шириной(width), а также вычислять его периметр и площадь
    */
-
 
 
   /**
@@ -57,20 +51,12 @@ object type_system {
    */
 
 
-
-
-
-
   /**
    * case class
    *
    */
 
-   // создать case класс кредитная карта с двумя полями номер и cvc
-
-
-
-
+  // создать case класс кредитная карта с двумя полями номер и cvc
 
 
   /**
@@ -79,18 +65,19 @@ object type_system {
    * Используются для создания перечислений или же в качестве сообщений для Акторов
    */
 
-    trait Color
-    case object Red extends Color
-    case object Green extends Color
-    case object Blue extends Color
+  trait Color
+
+  case object Red extends Color
+
+  case object Green extends Color
+
+  case object Blue extends Color
 
 
   /**
    * trait
    *
    */
-
-
 
 
   class A {
@@ -112,9 +99,6 @@ object type_system {
   trait E extends C {
     override def foo(): String = "E" + super.foo()
   }
-
-
-
 
 
   /**
