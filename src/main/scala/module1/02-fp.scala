@@ -165,7 +165,10 @@ object hof{
       case Option.None => Option.None
     }
 
-    def flatMap[B](f: A => Option[B]): Option[B] = ???
+    def flatMap[B](f: A => Option[B]): Option[B] = this match {
+      case Option.Some(v) => f(v)
+      case Option.None => Option.None
+    }
 
     // val i : Option[Int]  i.map(v => v + 1)
 
@@ -174,47 +177,59 @@ object hof{
       if(y == 0) Option.None
       else Option.Some(x / y)
 
+    /**
+     *
+     * Реализовать метод filter, который будет возвращать не пустой Option
+     * в случае если исходный не пуст и предикат от значения = true
+     */
+    def filter(f: A => Boolean): Option[A] = this match {
+      case Option.Some(v) => if (f(v)) this else Option.None
+      case Option.None => Option.None
+    }
+
+    /**
+     *
+     * Реализовать метод printIfAny, который будет печатать значение, если оно есть
+     */
+
+    def printIfAny(print: A => Unit) : Unit = this match {
+      case Option.Some(v) => print(v)
+      case Option.None =>
+    }
+
+    /**
+     *
+     * реализовать метод orElse который будет возвращать другой Option, если данный пустой
+     */
+    def orElse[B >: A](val2: B) : Option[B] = this match {
+      case Option.Some(_) => this
+      case Option.None => Option.Some(val2)
+    }
+
+    /**
+     *
+     * Реализовать метод zip, который будет создавать Option от пары значений из 2-х Option
+     */
+
+    def zip[B >: A](op2: Option[B]) : Option[(A,B)] = {
+      if (op2.isEmpty) Option.None
+      else
+      this match {
+        case Option.Some(v) =>Option.Some((v, op2.get))
+        case Option.None => Option.None
+      }
+    }
 
   }
 
-   object Option{
-     case class Some[A](v: A) extends Option[A]
-     case object None extends Option[Nothing]
-   }
 
 
-  /**
-   *
-   * Реализовать метод printIfAny, который будет печатать значение, если оно есть
-   */
+  object Option {
 
-  /**
-   *
-   * реализовать метод orElse который будет возвращать другой Option, если данный пустой
-   */
+    case class Some[A](v: A) extends Option[A]
 
+    case object None extends Option[Nothing]
 
-  /**
-   *
-   * Реализовать метод isEmpty, который будет возвращать true если Option не пуст и false в противном случае
-   */
-
-
-  /**
-   *
-   * Реализовать метод get, который будет возвращать значение
-   */
-
-  /**
-   *
-   * Реализовать метод zip, который будет создавать Option от пары значений из 2-х Option
-   */
-
-
-  /**
-   *
-   * Реализовать метод filter, который будет возвращать не пустой Option
-   * в случае если исходный не пуст и предикат от значения = true
-   */
+  }
 
  }
