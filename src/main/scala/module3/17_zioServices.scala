@@ -16,12 +16,10 @@ object zioServices{
     _ <- UserService.notifyUser(UserID(1))
   } yield ()
 
+  // для запуска эффекта необходимо запровайдить все зависимости. -RIn - должен быть Any
   val appEnv: ZLayer[Any, Throwable, UserService with EmailService] =
     UserDAO.live >>> UserService.live ++ EmailService.live
 
-
-
   zio.Runtime.default.unsafeRun(app.provideSomeLayer[Console](appEnv))
-
 
 }
